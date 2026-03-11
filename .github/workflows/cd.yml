@@ -30,3 +30,6 @@ jobs:
       - name: Build and push Docker image
         run: |
           gcloud builds submit --tag europe-west1-docker.pkg.dev/mystical-height-489914-f9/notely/notely:latest .
+
+      - name: Deploy to Cloud Run
+        run: gcloud run deploy notely --image europe-west1-docker.pkg.dev/mystical-height-489914-f9/notely/notely:latest --region us-central1 --allow-unauthenticated --project mystical-height-489914-f9 --max-instances=4
