@@ -18,3 +18,15 @@ jobs:
 
       - name: Build the app
         run: ./scripts/buildprod.sh
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Build and push Docker image
+        run: |
+          gcloud builds submit --tag europe-west1-docker.pkg.dev/mystical-height-489914-f9/notely/notely:latest .
